@@ -66,10 +66,11 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
+      config.vm.provision "file", source: "D:/vagrant_vm/files/bash_root.txt", destination: "/tmp/bash_root.txt"
       config.vm.provision "shell", inline: <<-SHELL
       yum update -y
-      yum install epel-release vim bind-utils -y
-	  yum makecache fast
+      yum install vim bind-utils -y
+	  mv /tmp/bash_root.txt /root/.bashrc
 	  setenforce 0
 	  sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 	  hostnamectl set-hostname workstation
